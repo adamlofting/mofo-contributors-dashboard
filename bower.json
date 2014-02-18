@@ -1,0 +1,6 @@
+{
+  "name": "mofo-contributors-dashboard",
+  "dependencies": {
+    "makerstrap": "latest"
+  }
+}

@@ -1,22 +1,97 @@
+body {
+  background: #222;
+}
 
+.dashboard-container {
+  background:  #3fb58e;
+  padding: 20px 0 40px;
+}
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+.current-numbers {
+  color: #FFF;
+}
 
+.definition {
+  opacity: 0.5;
+}
 
+.key {
+  display: inline;
+  float: left;
+  width: 12px;
+  height: 12px;
+  background: none repeat scroll 0% 0% #FFF;
+  margin: 4px 9px 0 0;
+}
 
+.key.contributors-active {
+  border-radius: 10px;
+}
 
+.key.contributors-new {
+  background: #ffcd36;
+}
 
+footer p,
+footer h3,
+footer h5 {
+  color: #4d4e53;
+}
 
+/* Styling for D3 SVG Graph */
 
+svg {
+  background:  #3fb58e;
+}
 
+.axis path {
+  fill: none;
+  stroke: #68CAA9;
+  shape-rendering: crispEdges;
+}
+.axis {
+  font-size: 8pt;
+  font-family: Open Sans;
+  font-weight: normal;
+}
+.axis line {
+  fill: none;
+  stroke: #68CAA9;
+  shape-rendering: crispEdges;
+}
 
+.tick {
+  fill: none;
+}
+.tick text {
+  fill: #FFF;
+  stroke: none;
+}
 
+circle{
+  stroke: none;
+  fill: #fff;
+  opacity: 0.9;
+}
 
+.line.active-contributors {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
 
+rect.new-contributors {
+  fill: #ffcd36;
+}
 
+line.target {
+    fill: none;
+    stroke: #68CAA9;
+    opacity: 0.4;
+}
 
-
-
+line.target.goal {
+    fill: none;
+    stroke: #FFF;
+}
 

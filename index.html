@@ -7,60 +7,82 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700" rel="stylesheet">
+        <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="bower_components/makerstrap/makerstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css">
 
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+
+    <div class=" dashboard-container">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-      </div>
+        <div class="row">
+          <div class="alert alert-warning">
+            <span class="fa fa-warning"></span> <strong>DANGER</strong>: This dashboard is in development. Current status: dummy data (<a href="https://wiki.mozilla.org/Foundation/Metrics/Contributor_Dashboard/Status">Track status</a>).
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 current-numbers">
+            <h1>5,078</h1>
+            <h4>Active Contributors</h4>
+            <p class="small definition">These people have taken a significant action in support of the Mozilla Foundation in the last 12 months.</p>
+            <br />
+
+            <p><span class="key contributors-active"></span> Total Active Contributors</p>
+            <p><span class="key contributors-new"></span> New Contributors</p>
+            </ul>
+          </div>
+          <div class="col-md-9" id="graph-container">
+         </div>
+        </div>
+      </div> <!-- /container -->
     </div>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+    <footer class="wm-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <h3>1,230</h3>
+            <h5>Code &amp; APIs</h5>
+          </div>
+          <div class="col-md-2">
+            <h3>683</h3>
+            <h5>Content &amp; Translation</h5>
+          </div>
+          <div class="col-md-2">
+            <h3>1,508</h3>
+            <h5>Events</h5>
+          </div>
+          <div class="col-md-2">
+            <h3>942</h3>
+            <h5>Completed Training</h5>
+          </div>
+          <div class="col-md-2">
+            <h3>162</h3>
+            <h5>Community (other)</h5>
+          </div>
+          <div class="col-md-2">
+            <h3>137</h3>
+            <h5>Testing, QA &amp; Reporting Bugs</h5>
+          </div>
         </div>
       </div>
+    </footer>
 
-      <hr>
+      <!-- GRAPHING WITH D3 -->
+      <script src="js/vendor/d3.v3.min.js" charset="utf-8"></script>
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+      <!-- <script src="bower_components/bootstrap/bootstrap.min.js"></script> -->
 
-        <script src="js/vendor/bootstrap.min.js"></script>
+      <script src="js/main.js"></script>
 
-        <script src="js/main.js"></script>
-
-        <script>
+        <!-- <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+        </script> -->
     </body>
 </html>
