@@ -71,7 +71,6 @@ svg {
 circle{
   stroke: none;
   fill: #fff;
-  opacity: 0.9;
 }
 
 .line.active-contributors {

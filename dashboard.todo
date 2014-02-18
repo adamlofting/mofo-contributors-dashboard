@@ -1,20 +1,19 @@
 Graph:
-  ☐ Title for graph
   ☐ Hover on circle to show data
     ☐ Add big invisible circle behind each point for nicer hover area
  ☐ Move chart creation outside of draw function? (depending on requirements for respsonsive redraw)
- ☐ Rotate X Axis text 180 degress and align
 
 Design:
-  ☐ Add logo
-  ☐ Space for warning
-  ☐ Bucket Count
-  ☐ Get colour and styling from Webmaker style guide
   ☐ Favicon
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Title for graph @done (14-02-18 15:17) @project(Graph)
+ ✔ Space for warning @done (14-02-18 15:17) @project(Design)
+ ✔ Rotate X Axis text 180 degress and align @done (14-02-18 15:17) @project(Graph)
+ ✔ Get colour and styling from Webmaker style guide @done (14-02-18 15:17) @project(Design)
+ ✔ Bucket Count @done (14-02-18 15:17) @project(Design)
  ✔ Improve design of axis @done (14-02-17 17:53) @project(Graph)
  ✔ Add target line @done (14-02-17 17:53) @project(Graph)
  ✔ Make dots smaller @done (14-02-17 16:36) @project(Graph)
