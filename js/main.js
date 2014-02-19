@@ -10,7 +10,7 @@ var margin = {top: 25, right: 30, bottom: 45, left: 90};
   margin.horizontal = margin.left + margin.right;
 
 var width = 700 - margin.horizontal,
-    height = 380 - margin.vertical;
+    height = 400 - margin.vertical;
 
 
 var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARGET, Y_SCALE_MAX_DEFAULT]
@@ -19,8 +19,7 @@ var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARG
 function draw(data) {
 
   // CONTAINER
-  d3.select("#graph-container")
-  .append("svg")
+  d3.select("#chart")
     .attr("width", width + margin.horizontal)
     .attr("height", height + margin.vertical)
 
@@ -41,34 +40,31 @@ function draw(data) {
     .range([margin.left, margin.left + width]);
 
   // REFERENCE LINES
-  d3.select("svg")
+  d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
     .attr("x2", margin.left + width)
     .attr("y1", y_scale(TARGET_25_percent))
     .attr("y2", y_scale(TARGET_25_percent))
-    // .style("stroke-dasharray", ("1, 1"))
     .attr("class", "target milestone");
 
-  d3.select("svg")
+  d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
     .attr("x2", margin.left + width)
     .attr("y1", y_scale(TARGET_50_percent))
     .attr("y2", y_scale(TARGET_50_percent))
-    // .style("stroke-dasharray", ("1, 8"))
     .attr("class", "target milestone");
 
-  d3.select("svg")
+  d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
     .attr("x2", margin.left + width)
     .attr("y1", y_scale(TARGET_75_percent))
     .attr("y2", y_scale(TARGET_75_percent))
-    // .style("stroke-dasharray", ("1, 5"))
     .attr("class", "target milestone");
 
-  d3.select("svg")
+  d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
     .attr("x2", margin.left + width)
@@ -80,7 +76,7 @@ function draw(data) {
   // NEW CONTRIBUTORS
   // Bars
   var barWidth = width / data.length;
-  d3.select("svg")
+  d3.select("#chart")
     .selectAll("g")
     .data(data.filter(function(d) {return (d.new > 0)}))
     .enter()
@@ -98,21 +94,21 @@ function draw(data) {
     .x(function(d) {return x_scale(new Date(d.wkcommencing))})
     .y(function(d) {return y_scale(d.totalactive)});
 
-  d3.select("svg")
+  d3.select("#chart")
     .append("path")
     .datum(data.filter(function(d) {return (d.totalactive > 0)}))
     .attr("class", "line active-contributors")
     .attr("d", line);
 
   // Points
-  d3.select("svg")
+  d3.select("#chart")
     .selectAll("points")
     .data(data.filter(function(d) {return (d.totalactive > 0)}))
     .enter()
     .append("circle")
     .attr("class", "active-contributors");
 
-  d3.select("svg").selectAll(".active-contributors")
+  d3.select("#chart").selectAll(".active-contributors")
     .attr("cx", function(d) {return x_scale(new Date(d.wkcommencing))})
     .attr("cy", function(d) {return y_scale(d.totalactive)})
     .attr("r", 2.0);
@@ -130,7 +126,7 @@ function draw(data) {
                   }
                   return label;
                 });
-  d3.select("svg")
+  d3.select("#chart")
   .append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + (height + margin.top) + ")")
@@ -146,17 +142,11 @@ function draw(data) {
                 .scale(y_scale)
                 .orient("left")
                 .tickValues(TICK_VALUES);
-                // .ticks(6);
-  d3.select("svg")
+  d3.select("#chart")
   .append("g")
     .attr("class", "y axis")
     .attr("transform", "translate(" + margin.left + ", 0 )")
   .call(y_axis);
-
-  // d3.select(".y.axis")
-  //   .append("text")
-  //   .text("Active Contributors")
-  //   .attr("transform", "rotate (-90, -30, 0) translate(-250,-30)");
 
 }
 
