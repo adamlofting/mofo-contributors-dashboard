@@ -4,14 +4,14 @@ Graph:
  ☐ Move chart creation outside of draw function? (depending on requirements for respsonsive redraw)
 
 Design:
-  ☐ Favicon
 
 Demo:
- ☐ Get prototype working
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Favicon @done (14-02-19 11:40) @project(Design)
+ ✔ Get prototype working @done (14-02-19 11:32) @project(Demo)
  ✔ Title for graph @done (14-02-18 15:17) @project(Graph)
  ✔ Space for warning @done (14-02-18 15:17) @project(Design)
  ✔ Rotate X Axis text 180 degress and align @done (14-02-18 15:17) @project(Graph)
