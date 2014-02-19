@@ -5,23 +5,25 @@ var TARGET = 10000,
   TARGET_50_percent = Math.round(TARGET * 0.5),
   TARGET_75_percent = Math.round(TARGET * 0.75);
 
-var margin = {top: 25, right: 30, bottom: 45, left: 90};
+var margin = {top: 20, right: 20, bottom: 45, left: 50};
   margin.vertical = margin.top + margin.bottom;
   margin.horizontal = margin.left + margin.right;
 
 var width = 700 - margin.horizontal,
     height = 400 - margin.vertical;
 
+var VIEWBOX = "0 0 " + (width + margin.horizontal) + " " + (height + margin.vertical);
 
 var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARGET, Y_SCALE_MAX_DEFAULT]
 
+// CONTAINER
+d3.select("#chart")
+  .attr("width", width + margin.horizontal)
+  .attr("height", height + margin.vertical)
+  .attr("viewBox", VIEWBOX) // this is used for SVG proportional resizing
+
 // Build the graph
 function draw(data) {
-
-  // CONTAINER
-  d3.select("#chart")
-    .attr("width", width + margin.horizontal)
-    .attr("height", height + margin.vertical)
 
   // SCALE
   var y_scale_max = Y_SCALE_MAX_DEFAULT;
@@ -150,5 +152,22 @@ function draw(data) {
 
 }
 
-// Get the data
+// Draw the D3 chart
 d3.json("dummy.json", draw);
+
+// Make the chart responsive
+var chart = $("#chart"),
+    aspect = chart.width() / chart.height(),
+    container = chart.parent();
+
+function resize_chart () {
+  var targetWidth = container.width();
+  chart.attr("width", targetWidth);
+  chart.attr("height", Math.round(targetWidth / aspect));
+}
+
+$(window).on("resize", function() {
+    resize_chart();
+}).trigger("resize");
+
+
