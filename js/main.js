@@ -161,4 +161,4 @@ function draw(data) {
 }
 
 // Get the data
-d3.json("/dummy.json", draw);
+d3.json("dummy.json", draw);
