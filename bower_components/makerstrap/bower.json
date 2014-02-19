@@ -1,0 +1,17 @@
+{
+  "name": "makerstrap",
+  "author": "@k88hudson",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "3.0.3"
+  },
+  "ignore": [
+    "bower_components/",
+    "node_modules/",
+    "demo/",
+    "Gruntfile.js",
+    "Procfile",
+    "server.js",
+    "package.json"
+  ]
+}
