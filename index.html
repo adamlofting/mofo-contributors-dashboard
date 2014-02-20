@@ -19,20 +19,24 @@
     <div class=" dashboard-container">
       <div class="container">
         <div class="row">
-          <div class="alert alert-warning">
-            <span class="fa fa-warning"></span> <strong>DANGER</strong>: This dashboard is in development. Current status: dummy data (<a href="https://wiki.mozilla.org/Foundation/Metrics/Contributor_Dashboard/Status">Track status</a>).
+          <div class="col-md-12">
+            <div class="alert alert-warning">
+              <span class="fa fa-warning"></span> <strong>DANGER - Dashboard in development:</strong> Review for design only, the numbers are not real (<a href="https://wiki.mozilla.org/Foundation/Metrics/Contributor_Dashboard/Status">Track status</a>).
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-3 current-numbers">
-            <h1>5,078</h1>
-            <h4>Active Contributors</h4>
-            <p class="small definition">These people have taken a significant action in support of the Mozilla Foundation in the last 12 months.</p>
-            <br />
+            <div class="total">
+              <h1 id="active-total">5,078</h1>
+              <h4>Active Contributors</h4>
+              <p class="small definition hidden-sm hidden-xs">People who have taken a significant action in support of the Mozilla Foundation or our programs in the last 12 months.</p>
+            </div>
 
-            <p><span class="key contributors-active"></span> Total Active Contributors</p>
-            <p><span class="key contributors-new"></span> New Contributors</p>
-
+            <div class="key-box">
+              <p><span class="key contributors-active"></span> Total Active Contributors</p>
+              <p><span class="key contributors-new"></span> New Contributors</p>
+            </div>
           </div>
           <div class="col-md-9" id="graph-container">
             <svg id="chart" preserveAspectRatio="xMidYMid">
@@ -46,29 +50,29 @@
     <footer class="wm-footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>1,230</h3>
             <h5>Code &amp; APIs</h5>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>683</h3>
             <h5>Content &amp; Translation</h5>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>1,508</h3>
             <h5>Events</h5>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>942</h3>
             <h5>Completed Training</h5>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>162</h3>
             <h5>Community (other)</h5>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-2">
             <h3>137</h3>
-            <h5>Testing, QA &amp; Reporting Bugs</h5>
+            <h5>Testing, QA &amp; Bugs</h5>
           </div>
         </div>
       </div>

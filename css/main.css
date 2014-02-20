@@ -1,5 +1,5 @@
 body {
-  background: #222;
+  background: #013E5F;
 }
 
 .dashboard-container {
@@ -32,10 +32,74 @@ body {
   background: #ffcd36;
 }
 
-footer p,
-footer h3,
+.wm-footer {
+    padding: 40px 0px;
+    background-color: #013E5F;
+    color: #FFF;
+}
+
+footer h3 {
+  color: #3fb58e;
+  margin-bottom: 5px;
+}
+
 footer h5 {
-  color: #4d4e53;
+  color: #e3eaee;
+  margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+  /*.container {
+    width: 750px;
+  }*/
+}
+
+@media (min-width: 992px) {
+  .key-box {
+    padding: 40px 0 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  
+}
+
+@media (max-width: 768px) {
+  .key-box {
+    padding: 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .total {
+    display: inline;
+    float: left;
+    width: 40%;
+  }
+
+  #active-total,
+  .total h4 {
+    margin: 0;
+  }
+
+  .key-box {
+    display: inline;
+    float: right;
+    width: 40%;
+    padding-top: 10px;
+  }
+
+  .key-box p {
+    display: inline;
+    float: left;
+    margin: 0 0 0 40px;
+  }
+
+  #graph-container {
+    display: inline;
+    float: left;
+    margin-top: 25px;
+  }
 }
 
 /* Styling for D3 SVG Graph */
