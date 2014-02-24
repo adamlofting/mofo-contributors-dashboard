@@ -15,12 +15,21 @@ body {
   opacity: 0.5;
 }
 
+.key-box p {
+  display: inline;
+  float: right;
+  margin: 0 0 0 40px;
+  color: #FFF;
+  font-size: 12px;
+  line-height: 20px;
+}
+
 .key {
   display: inline;
   float: left;
   width: 12px;
   height: 12px;
-  background: none repeat scroll 0% 0% #FFF;
+  background: #FFF;
   margin: 4px 9px 0 0;
 }
 
@@ -38,13 +47,13 @@ body {
     color: #FFF;
 }
 
-footer h3 {
-  color: #3fb58e;
+footer h4 {
+  color: #028ED9;
   margin-bottom: 5px;
 }
 
 footer h5 {
-  color: #e3eaee;
+  color: #02669D;
   margin-top: 5px;
 }
 
@@ -55,18 +64,27 @@ footer h5 {
 }
 
 @media (min-width: 992px) {
-  .key-box {
-    padding: 40px 0 0;
-  }
+
 }
 
 @media (min-width: 1200px) {
-  
+
 }
 
 @media (max-width: 768px) {
+  footer h4 {
+    margin-top: 20px;
+  }
+
   .key-box {
-    padding: 15px;
+    margin: 20px 0 30px;
+  }
+
+  .key-box p {
+    display: inline;
+    float: left;
+    padding: 0;
+    margin: 0 5px 5px;
   }
 }
 
@@ -87,12 +105,6 @@ footer h5 {
     float: right;
     width: 40%;
     padding-top: 10px;
-  }
-
-  .key-box p {
-    display: inline;
-    float: left;
-    margin: 0 0 0 40px;
   }
 
   #graph-container {

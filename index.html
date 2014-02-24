@@ -32,13 +32,16 @@
               <h4>Active Contributors</h4>
               <p class="small definition hidden-sm hidden-xs">People who have taken a significant action in support of the Mozilla Foundation or our programs in the last 12 months.</p>
             </div>
-
-            <div class="key-box">
-              <p><span class="key contributors-active"></span> Total Active Contributors</p>
+            <div class="key-box visible-sm visible-xs"><!-- duplicated for responsive positioning -->
               <p><span class="key contributors-new"></span> New Contributors</p>
+              <p><span class="key contributors-active"></span> Total Active Contributors</p>
             </div>
           </div>
           <div class="col-md-9" id="graph-container">
+            <div class="key-box hidden-sm hidden-xs"><!-- duplicated for responsive positioning -->
+              <p><span class="key contributors-new"></span> New Contributors</p>
+              <p><span class="key contributors-active"></span> Total Active Contributors</p>
+            </div>
             <svg id="chart" preserveAspectRatio="xMidYMid">
             </svg>
           </div>
@@ -50,28 +53,31 @@
     <footer class="wm-footer">
       <div class="container">
         <div class="row">
+          <div class="col-sm-12">
+            <h5>BY CONTRIBUTION TYPE</h5>
+          </div>
           <div class="col-sm-2">
-            <h3>1,230</h3>
+            <h4>1,230</h4>
             <h5>Code &amp; APIs</h5>
           </div>
           <div class="col-sm-2">
-            <h3>683</h3>
+            <h4>683</h4>
             <h5>Content &amp; Translation</h5>
           </div>
           <div class="col-sm-2">
-            <h3>1,508</h3>
+            <h4>1,508</h4>
             <h5>Events</h5>
           </div>
           <div class="col-sm-2">
-            <h3>942</h3>
+            <h4>942</h4>
             <h5>Completed Training</h5>
           </div>
           <div class="col-sm-2">
-            <h3>162</h3>
+            <h4>162</h4>
             <h5>Community (other)</h5>
           </div>
           <div class="col-sm-2">
-            <h3>137</h3>
+            <h4>137</h4>
             <h5>Testing, QA &amp; Bugs</h5>
           </div>
         </div>
