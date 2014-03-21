@@ -1,5 +1,4 @@
 Data:
-  ☐ Future dates in some alternative styling
 
 Graph:
  ☐ Hover on circle to show data
@@ -13,6 +12,7 @@ Demo:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Future dates in some alternative styling @done (14-03-21 13:55) @project(Data)
  ✔ Update status @done (14-03-21 13:11) @project(Data)
  ✔ Load total from API @done (14-03-21 13:11) @project(Data)
  ✔ Load buckets from API @done (14-03-21 13:11) @project(Data)
