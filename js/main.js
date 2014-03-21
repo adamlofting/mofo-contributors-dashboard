@@ -1,3 +1,8 @@
+
+// Data
+var GRAPH_DATA = "http://aggredash.herokuapp.com/api/mofo/2014";
+var TOTALS_DATA = "http://aggredash.herokuapp.com/api/mofo/2014/latest";
+
 // Graph settings
 var Y_SCALE_MAX_DEFAULT = 12500;
 var TARGET = 10000,
@@ -24,10 +29,11 @@ d3.select("#chart")
 
 // Build the graph
 function draw(data) {
+  var now = new Date();
 
   // SCALE
   var y_scale_max = Y_SCALE_MAX_DEFAULT;
-  var contributor_extent = d3.extent(data, function(d){return d.totalactive});
+  var contributor_extent = d3.extent(data, function (d) { return d.totalactive });
   if (contributor_extent[1] > y_scale_max) {
     y_scale_max = contributor_extent[1];
   }
@@ -36,7 +42,7 @@ function draw(data) {
     .range([height + margin.top, margin.top])
     .domain([0,y_scale_max]);
 
-  var time_extent = d3.extent(data, function(d){return new Date(d.wkcommencing)});
+  var time_extent = d3.extent(data, function (d) { return new Date(d.wkcommencing) });
   var x_scale = d3.time.scale()
     .domain(time_extent)
     .range([margin.left, margin.left + width]);
@@ -80,46 +86,62 @@ function draw(data) {
   var barWidth = width / data.length;
   d3.select("#chart")
     .selectAll("g")
-    .data(data.filter(function(d) {return (d.new > 0)}))
+    .data(data.filter(function (d) { return (d.new > 0) }))
     .enter()
     .append("rect")
       .attr("class", "new-contributors")
       .attr("x", margin.left)
-      .attr("y",          function(d) {return y_scale(d.new); })
-      .attr("height",     function(d) {return height+margin.top - y_scale(d.new); })
+      .attr("y",          function (d) { return y_scale(d.new); })
+      .attr("height",     function (d) { return height+margin.top - y_scale(d.new); })
       .attr("width", barWidth - 1)
-      .attr("transform",  function(d, i) {return "translate(" + i * barWidth + ",0)"; });
+      .attr("transform",  function(d, i) { return "translate(" + i * barWidth + ",0)"; });
 
   // ACTIVE CONTRIBUTORS
   // Line
   var line = d3.svg.line()
-    .x(function(d) {return x_scale(new Date(d.wkcommencing))})
-    .y(function(d) {return y_scale(d.totalactive)});
+    .x(function (d) { return x_scale(new Date(d.wkcommencing)) })
+    .y(function (d) { return y_scale(d.totalactive) });
 
   d3.select("#chart")
     .append("path")
-    .datum(data.filter(function(d) {return (d.totalactive > 0)}))
+    .datum(data.filter(function (d) {
+        return (d.totalactive > 0) && (new Date(d.wkcommencing) < now);
+      })
+    )
     .attr("class", "line active-contributors")
     .attr("d", line);
 
   // Points
   d3.select("#chart")
     .selectAll("points")
-    .data(data.filter(function(d) {return (d.totalactive > 0)}))
+    .data(data.filter(function (d) { return (d.totalactive > 0) }))
     .enter()
     .append("circle")
-    .attr("class", "active-contributors");
+    .attr("class", function (d) {
+      if (new Date(d.wkcommencing) > now) {
+        return "active-contributors future-date";
+      } else {
+        return "active-contributors";
+      }
+    });
 
   d3.select("#chart").selectAll(".active-contributors")
-    .attr("cx", function(d) {return x_scale(new Date(d.wkcommencing))})
-    .attr("cy", function(d) {return y_scale(d.totalactive)})
-    .attr("r", 2.0);
+    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)) })
+    .attr("cy", function (d) { return y_scale(d.totalactive) })
+    .attr("r", function (d) {
+      if (new Date(d.wkcommencing) > now) {
+        return 1.0;
+      } else {
+        return 2.0;
+      }
+    });
+
 
   // AXIS
   var x_axis  = d3.svg.axis()
                 .scale(x_scale)
                 .ticks(d3.time.months, 1)
-                .tickFormat(function(d) {
+                .tickFormat(function (d) {
                   var format_month = d3.time.format('%b'); // short name month e.g. Feb
                   var format_year = d3.time.format('%Y');
                   var label = format_month(d);//.toUpperCase();
@@ -153,7 +175,8 @@ function draw(data) {
 }
 
 // Draw the D3 chart
-d3.json("dummy.json", draw);
+//d3.json("dummy.json", draw);
+d3.json(GRAPH_DATA, draw);
 
 // Make the chart responsive
 var chart = $("#chart"),
@@ -171,3 +194,33 @@ $(window).on("resize", function() {
 }).trigger("resize");
 
 
+// Latest counts (seperate from the weekly data in the graph)
+function display_latest (data) {
+
+  // Get the total
+  d3.select("#active-total")
+    .data([data])
+    .text(function (d) {
+      //return d;
+      return d.total.total_active;
+    });
+
+  // Get the buckets
+  d3.select("#buckets").selectAll("h4")
+    .each(function (d, i) {
+      var bucket = d3.select(this);
+      var id = bucket.attr("id");
+      var bucketLabel = id.replace("bucket-","");
+      var bucketCount = 0;
+      data.buckets.forEach(function (element, index, array) {
+        if (element.bucket && (element.bucket === bucketLabel)) {
+          if (element.total_active) {
+            bucketCount = element.total_active;
+          }
+        }
+      })
+      bucket.text(bucketCount);
+    });
+}
+
+d3.json(TOTALS_DATA, display_latest);

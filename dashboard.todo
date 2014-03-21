@@ -1,5 +1,8 @@
+Data:
+  ☐ Future dates in some alternative styling
+
 Graph:
-  ☐ Hover on circle to show data
+ ☐ Hover on circle to show data
     ☐ Add big invisible circle behind each point for nicer hover area
  ☐ Move chart creation outside of draw function? (depending on requirements for respsonsive redraw)
 
@@ -10,6 +13,9 @@ Demo:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Update status @done (14-03-21 13:11) @project(Data)
+ ✔ Load total from API @done (14-03-21 13:11) @project(Data)
+ ✔ Load buckets from API @done (14-03-21 13:11) @project(Data)
  ✔ Favicon @done (14-02-19 11:40) @project(Design)
  ✔ Get prototype working @done (14-02-19 11:32) @project(Demo)
  ✔ Title for graph @done (14-02-18 15:17) @project(Graph)

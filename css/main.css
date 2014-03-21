@@ -149,6 +149,10 @@ circle{
   fill: #fff;
 }
 
+circle.future-date{
+  fill: #68CAA9;
+}
+
 .line.active-contributors {
   fill: none;
   stroke: #fff;
