@@ -1,0 +1,15 @@
+{
+  "name": "jquery-number",
+  "homepage": "https://github.com/teamdf/jquery-number",
+  "version": "2.1.3",
+  "_release": "2.1.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.3",
+    "commit": "c19aa592cce25cf66bb6d364b73d9e43a47a27b9"
+  },
+  "_source": "git://github.com/teamdf/jquery-number.git",
+  "_target": "~2.1.3",
+  "_originalSource": "jquery-number",
+  "_direct": true
+}

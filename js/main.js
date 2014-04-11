@@ -205,7 +205,7 @@ function display_latest (data) {
     .data([data])
     .text(function (d) {
       //return d;
-      return d.total.total_active;
+      return $.number(d.total.total_active);
     });
 
   // Get the buckets
@@ -222,7 +222,7 @@ function display_latest (data) {
           }
         }
       });
-      bucket.text(bucketCount);
+      bucket.text($.number(bucketCount));
     });
 }
 
