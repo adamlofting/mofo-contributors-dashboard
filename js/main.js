@@ -14,18 +14,18 @@ var margin = {top: 20, right: 20, bottom: 45, left: 50};
   margin.vertical = margin.top + margin.bottom;
   margin.horizontal = margin.left + margin.right;
 
-var width = 700 - margin.horizontal,
-    height = 340 - margin.vertical;
+var width = 900 - margin.horizontal,
+    height = 450 - margin.vertical;
 
 var VIEWBOX = "0 0 " + (width + margin.horizontal) + " " + (height + margin.vertical);
 
-var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARGET, Y_SCALE_MAX_DEFAULT]
+var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARGET, Y_SCALE_MAX_DEFAULT];
 
 // CONTAINER
 d3.select("#chart")
   .attr("width", width + margin.horizontal)
   .attr("height", height + margin.vertical)
-  .attr("viewBox", VIEWBOX) // this is used for SVG proportional resizing
+  .attr("viewBox", VIEWBOX); // this is used for SVG proportional resizing
 
 // Build the graph
 function draw(data) {
@@ -33,7 +33,7 @@ function draw(data) {
 
   // SCALE
   var y_scale_max = Y_SCALE_MAX_DEFAULT;
-  var contributor_extent = d3.extent(data, function (d) { return d.totalactive });
+  var contributor_extent = d3.extent(data, function (d) { return d.totalactive; });
   if (contributor_extent[1] > y_scale_max) {
     y_scale_max = contributor_extent[1];
   }
@@ -42,7 +42,7 @@ function draw(data) {
     .range([height + margin.top, margin.top])
     .domain([0,y_scale_max]);
 
-  var time_extent = d3.extent(data, function (d) { return new Date(d.wkcommencing) });
+  var time_extent = d3.extent(data, function (d) { return new Date(d.wkcommencing); });
   var x_scale = d3.time.scale()
     .domain(time_extent)
     .range([margin.left, margin.left + width]);
@@ -86,7 +86,7 @@ function draw(data) {
   var barWidth = width / data.length;
   d3.select("#chart")
     .selectAll("g")
-    .data(data.filter(function (d) { return (d.new > 0) }))
+    .data(data.filter(function (d) { return (d.new > 0); }))
     .enter()
     .append("rect")
       .attr("class", "new-contributors")
@@ -99,8 +99,8 @@ function draw(data) {
   // ACTIVE CONTRIBUTORS
   // Line
   var line = d3.svg.line()
-    .x(function (d) { return x_scale(new Date(d.wkcommencing)) })
-    .y(function (d) { return y_scale(d.totalactive) });
+    .x(function (d) { return x_scale(new Date(d.wkcommencing)); })
+    .y(function (d) { return y_scale(d.totalactive); });
 
   d3.select("#chart")
     .append("path")
@@ -114,7 +114,7 @@ function draw(data) {
   // Points
   d3.select("#chart")
     .selectAll("points")
-    .data(data.filter(function (d) { return (d.totalactive > 0) }))
+    .data(data.filter(function (d) { return (d.totalactive > 0); }))
     .enter()
     .append("circle")
     .attr("class", function (d) {
@@ -126,8 +126,8 @@ function draw(data) {
     });
 
   d3.select("#chart").selectAll(".active-contributors")
-    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)) })
-    .attr("cy", function (d) { return y_scale(d.totalactive) })
+    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)); })
+    .attr("cy", function (d) { return y_scale(d.totalactive); })
     .attr("r", function (d) {
       if (new Date(d.wkcommencing) > now) {
         return 1.0;
@@ -218,7 +218,7 @@ function display_latest (data) {
             bucketCount = element.total_active;
           }
         }
-      })
+      });
       bucket.text(bucketCount);
     });
 }
