@@ -21,6 +21,8 @@ var VIEWBOX = "0 0 " + (width + margin.horizontal) + " " + (height + margin.vert
 
 var TICK_VALUES = [TARGET_25_percent, TARGET_50_percent, TARGET_75_percent, TARGET, Y_SCALE_MAX_DEFAULT];
 
+var SHOW_FUTURE_LAG = false;
+
 // CONTAINER
 d3.select("#chart")
   .attr("width", width + margin.horizontal)
@@ -119,7 +121,9 @@ function draw(data) {
     .append("circle")
     .attr("class", function (d) {
       if (new Date(d.wkcommencing) > now) {
-        return "active-contributors future-date";
+        if (SHOW_FUTURE_LAG) {
+          return "active-contributors future-date";
+        }
       } else {
         return "active-contributors";
       }
@@ -175,7 +179,6 @@ function draw(data) {
 }
 
 // Draw the D3 chart
-//d3.json("dummy.json", draw);
 d3.json(GRAPH_DATA, draw);
 
 // Make the chart responsive
