@@ -163,6 +163,10 @@ rect.new-contributors {
   fill: #ffcd36;
 }
 
+rect.hide {
+  display: none;
+}
+
 line.target {
     fill: none;
     stroke: #68CAA9;

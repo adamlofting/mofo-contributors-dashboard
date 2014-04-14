@@ -83,25 +83,39 @@ function draw(data) {
     .style("stroke-dasharray", ("3, 3"))
     .attr("class", "target goal");
 
-  // NEW CONTRIBUTORS
   // Bars
   var barWidth = width / data.length;
+  var halfBar = (barWidth / 2) - 1;
+
+  // NEW CONTRIBUTORS
   d3.select("#chart")
     .selectAll("g")
     .data(data.filter(function (d) { return (d.new > 0); }))
     .enter()
     .append("rect")
-      .attr("class", "new-contributors")
-      .attr("x", margin.left)
+      .attr("class", function (d) {
+        if (new Date(d.wkcommencing) > now) {
+          if (SHOW_FUTURE_LAG) {
+            return "new-contributors future-date";
+          } else {
+            return "hide";
+          }
+        } else {
+          return "new-contributors";
+        }
+      })
       .attr("y",          function (d) { return y_scale(d.new); })
       .attr("height",     function (d) { return height+margin.top - y_scale(d.new); })
-      .attr("width", barWidth - 1)
-      .attr("transform",  function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+      .attr("width", barWidth - 1);
+
+  // Position these elements on the X axis using their date value
+  d3.select("#chart").selectAll(".new-contributors")
+    .attr("x", function (d) { return x_scale(new Date(d.wkcommencing)); });
 
   // ACTIVE CONTRIBUTORS
   // Line
   var line = d3.svg.line()
-    .x(function (d) { return x_scale(new Date(d.wkcommencing)); })
+    .x(function (d) { return x_scale(new Date(d.wkcommencing)) + halfBar; })
     .y(function (d) { return y_scale(d.totalactive); });
 
   d3.select("#chart")
@@ -130,7 +144,7 @@ function draw(data) {
     });
 
   d3.select("#chart").selectAll(".active-contributors")
-    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)); })
+    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)) + halfBar; })
     .attr("cy", function (d) { return y_scale(d.totalactive); })
     .attr("r", function (d) {
       if (new Date(d.wkcommencing) > now) {
