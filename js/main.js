@@ -49,6 +49,16 @@ function draw(data) {
     .domain(time_extent)
     .range([margin.left, margin.left + width]);
 
+  // TOOL TIP
+  var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([35, 0])
+  .html(function(d) {
+    return "<span style='color:#FFF;'>" + $.number(d.totalactive) + "</span> Active<br /><span style='color:#FFCD36;'>" + $.number(d.new) + "</span> New";
+  });
+
+  d3.select("#chart").call(tip);
+
   // REFERENCE LINES
   d3.select("#chart")
     .append("line")
@@ -86,6 +96,39 @@ function draw(data) {
   // Bars
   var barWidth = width / data.length;
   var halfBar = (barWidth / 2) - 1;
+
+  // HOVER BARS
+  d3.select("#chart")
+    .selectAll("g")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", function (d) {
+        if (new Date(d.wkcommencing) > now) {
+          if (SHOW_FUTURE_LAG) {
+            return "info-area future-date";
+          } else {
+            return "hide";
+          }
+        } else {
+          return "info-area";
+        }
+      })
+      .attr("y",          function (d) { return margin.top; })
+      .attr("height",     function (d) { return height; })
+      .attr("width", barWidth - 1)
+      .on("mouseover", function(d, i) {
+        d3.select(this).style("opacity", 0.1);
+        tip.show(d);
+        })
+      .on("mouseout", function(d, i) {
+        d3.select(this).style("opacity", 0);
+        tip.hide(d);
+      });
+
+  // Position these elements on the X axis using their date value
+  d3.select("#chart").selectAll(".info-area")
+    .attr("x", function (d) { return x_scale(new Date(d.wkcommencing)); });
 
   // NEW CONTRIBUTORS
   d3.select("#chart")
@@ -189,7 +232,6 @@ function draw(data) {
     .attr("class", "y axis")
     .attr("transform", "translate(" + margin.left + ", 0 )")
   .call(y_axis);
-
 }
 
 // Draw the D3 chart
@@ -209,6 +251,7 @@ function resize_chart () {
 $(window).on("resize", function() {
     resize_chart();
 }).trigger("resize");
+
 
 
 // Latest counts (seperate from the weekly data in the graph)
