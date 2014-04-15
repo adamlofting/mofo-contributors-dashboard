@@ -1,14 +1,44 @@
 
-// Data
-var GRAPH_DATA = "http://aggredash.herokuapp.com/api/mofo/2014";
-var TOTALS_DATA = "http://aggredash.herokuapp.com/api/mofo/2014/latest";
+// check parameters to customise this by team:
+var team = $.url().param("team");
+var validTeams = ['webmaker', 'openbadges', 'sciencelab', 'opennews', 'appmaker'];
+
+if (team && ($.inArray(team, validTeams) > -1)) {
+  var GRAPH_DATA = "http://aggredash.herokuapp.com/api/" + team + "/2014";
+  var TOTALS_DATA = "http://aggredash.herokuapp.com/api/" + team + "/2014/latest";
+  var TARGET;
+  var TITLE;
+  if (team === 'webmaker') {
+    TARGET = 10000;
+    TITLE = 'Webmaker';
+  } else if (team === 'openbadges') {
+    TARGET = 3000;
+    TITLE = 'Open Badges';
+  } else if (team === 'sciencelab') {
+    TARGET = 750;
+    TITLE = 'Science Lab';
+  } else if (team === 'appmaker') {
+    TARGET = 500;
+    TITLE = 'Appmaker';
+  } else if (team === 'opennews') {
+    TARGET = 500;
+    TITLE = 'OpenNews';
+  }
+} else {
+  // default Mofo view
+  var GRAPH_DATA = "http://aggredash.herokuapp.com/api/mofo/2014";
+  var TOTALS_DATA = "http://aggredash.herokuapp.com/api/mofo/2014/latest";
+  var TARGET = 10000;
+  var TITLE = 'All Mozilla Foundation';
+}
+
+$('#teamName').text(TITLE);
 
 // Graph settings
-var Y_SCALE_MAX_DEFAULT = 12500;
-var TARGET = 10000,
-  TARGET_25_percent = Math.round(TARGET * 0.25),
-  TARGET_50_percent = Math.round(TARGET * 0.5),
-  TARGET_75_percent = Math.round(TARGET * 0.75);
+var Y_SCALE_MAX_DEFAULT = TARGET * 1.25;
+var TARGET_25_percent = Math.round(TARGET * 0.25),
+    TARGET_50_percent = Math.round(TARGET * 0.5),
+    TARGET_75_percent = Math.round(TARGET * 0.75);
 
 var margin = {top: 20, right: 20, bottom: 45, left: 50};
   margin.vertical = margin.top + margin.bottom;

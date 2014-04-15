@@ -1,8 +1,4 @@
 Mofo Contributors Dashboard (Prototype)
 ===================
 
-Testing, testing...
-
-Do not use this for anything right now ;)
-
-These are not real numbers...
+A front end dashboard to graph Mozilla Foundation Contributor Numbers and a selection of top-line numbers to support this.
