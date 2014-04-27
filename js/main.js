@@ -1,7 +1,7 @@
 
 // check parameters to customise this by team:
 var team = $.url().param("team");
-var validTeams = ['webmaker', 'openbadges', 'sciencelab', 'opennews', 'appmaker'];
+var validTeams = ['webmaker', 'openbadges', 'sciencelab', 'opennews', 'appmaker', 'hive'];
 
 if (team && ($.inArray(team, validTeams) > -1)) {
   var GRAPH_DATA = "http://aggredash.herokuapp.com/api/" + team + "/2014";
@@ -23,6 +23,9 @@ if (team && ($.inArray(team, validTeams) > -1)) {
   } else if (team === 'opennews') {
     TARGET = 500;
     TITLE = 'OpenNews';
+  } else if (team === 'hive') {
+    TARGET = 750;
+    TITLE = 'Hive';
   }
 } else {
   // default Mofo view
