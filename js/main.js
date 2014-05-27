@@ -12,10 +12,10 @@ if (team && ($.inArray(team, validTeams) > -1)) {
     TARGET = 10000;
     TITLE = 'Webmaker';
   } else if (team === 'openbadges') {
-    TARGET = 3000;
+    TARGET = 1000;
     TITLE = 'Open Badges';
   } else if (team === 'sciencelab') {
-    TARGET = 750;
+    TARGET = 500;
     TITLE = 'Science Lab';
   } else if (team === 'appmaker') {
     TARGET = 500;
