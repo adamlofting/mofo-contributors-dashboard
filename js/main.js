@@ -43,12 +43,12 @@ var TARGET_25_percent = Math.round(TARGET * 0.25),
     TARGET_50_percent = Math.round(TARGET * 0.5),
     TARGET_75_percent = Math.round(TARGET * 0.75);
 
-var margin = {top: 20, right: 20, bottom: 45, left: 50};
+var margin = {top: 20, right: 80, bottom: 80, left: 100};
   margin.vertical = margin.top + margin.bottom;
   margin.horizontal = margin.left + margin.right;
 
 var width = 900 - margin.horizontal,
-    height = 450 - margin.vertical;
+    height = 500 - margin.vertical;
 
 var VIEWBOX = "0 0 " + (width + margin.horizontal) + " " + (height + margin.vertical);
 
@@ -72,10 +72,15 @@ function draw(data) {
   if (contributor_extent[1] > y_scale_max) {
     y_scale_max = contributor_extent[1];
   }
-
   var y_scale = d3.scale.linear()
     .range([height + margin.top, margin.top])
     .domain([0,y_scale_max]);
+
+  // secondary Y axis
+  var contributor_new_extent = d3.extent(data, function (d) { return d.new; });
+  var y_scale_2 = d3.scale.linear()
+    .range([height + margin.top, margin.top])
+    .domain([0,contributor_new_extent[1]*6]);
 
   var time_extent = d3.extent(data, function (d) { return new Date(d.wkcommencing); });
   var x_scale = d3.time.scale()
@@ -96,7 +101,7 @@ function draw(data) {
   d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
-    .attr("x2", margin.left + width)
+    .attr("x2", margin.left + width - 20)
     .attr("y1", y_scale(TARGET_25_percent))
     .attr("y2", y_scale(TARGET_25_percent))
     .attr("class", "target milestone");
@@ -104,7 +109,7 @@ function draw(data) {
   d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
-    .attr("x2", margin.left + width)
+    .attr("x2", margin.left + width - 20)
     .attr("y1", y_scale(TARGET_50_percent))
     .attr("y2", y_scale(TARGET_50_percent))
     .attr("class", "target milestone");
@@ -112,7 +117,7 @@ function draw(data) {
   d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
-    .attr("x2", margin.left + width)
+    .attr("x2", margin.left + width - 20)
     .attr("y1", y_scale(TARGET_75_percent))
     .attr("y2", y_scale(TARGET_75_percent))
     .attr("class", "target milestone");
@@ -120,7 +125,7 @@ function draw(data) {
   d3.select("#chart")
     .append("line")
     .attr("x1", margin.left)
-    .attr("x2", margin.left + width)
+    .attr("x2", margin.left + width - 20)
     .attr("y1", y_scale(TARGET))
     .attr("y2", y_scale(TARGET))
     .style("stroke-dasharray", ("3, 3"))
@@ -180,8 +185,8 @@ function draw(data) {
           return "new-contributors";
         }
       })
-      .attr("y",          function (d) { return y_scale(d.new); })
-      .attr("height",     function (d) { return height+margin.top - y_scale(d.new); })
+      .attr("y",          function (d) { return y_scale_2(d.new); })
+      .attr("height",     function (d) { return height+margin.top - y_scale_2(d.new); })
       .attr("width", barWidth - 1);
 
   // Position these elements on the X axis using their date value
@@ -238,8 +243,8 @@ function draw(data) {
                 .tickFormat(function (d) {
                   var format_month = d3.time.format('%b'); // short name month e.g. Feb
                   var format_year = d3.time.format('%Y');
-                  var label = format_month(d);//.toUpperCase();
-                  if (label === "Jan") {
+                  var label = format_month(d).toUpperCase();
+                  if (label === "JAN") {
                     label = format_year(d);
                   }
                   return label;
@@ -253,8 +258,8 @@ function draw(data) {
     .attr("y", 0)
     .attr("x", 0)
     .attr("dy", ".35em")
-    .attr("transform", "rotate(270) translate(-35,0)")
-    .style("text-anchor", "start");
+    .attr("transform", "rotate(270) translate(-15,0)")
+    .style("text-anchor", "end");
 
   var y_axis = d3.svg.axis()
                 .scale(y_scale)
@@ -265,6 +270,16 @@ function draw(data) {
     .attr("class", "y axis")
     .attr("transform", "translate(" + margin.left + ", 0 )")
   .call(y_axis);
+
+  var y_axis_2 = d3.svg.axis()
+                .scale(y_scale_2)
+                .orient("right")
+                .ticks(4);
+  d3.select("#chart")
+  .append("g")
+    .attr("class", "y axis new")
+    .attr("transform", "translate(" + (width + margin.left) + ", 0 )")
+  .call(y_axis_2);
 }
 
 // Draw the D3 chart

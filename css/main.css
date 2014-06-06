@@ -2,6 +2,10 @@ body {
   background: #013E5F;
 }
 
+#chart {
+  margin-top: 20px;
+}
+
 .dashboard-container {
   background:  #3fb58e;
   padding: 20px 0 40px;
@@ -126,10 +130,11 @@ svg {
   shape-rendering: crispEdges;
 }
 .axis {
-  font-size: 8pt;
+  font-size: 12pt;
   font-family: Open Sans;
   font-weight: normal;
 }
+
 .axis line {
   fill: none;
   stroke: #68CAA9;
@@ -142,6 +147,9 @@ svg {
 .tick text {
   fill: #FFF;
   stroke: none;
+}
+.axis.new .tick text {
+  fill: #FFCD36;
 }
 
 circle {
