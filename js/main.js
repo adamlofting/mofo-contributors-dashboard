@@ -15,7 +15,7 @@ if (team && ($.inArray(team, validTeams) > -1)) {
     TARGET = 1000;
     TITLE = 'Open Badges';
   } else if (team === 'sciencelab') {
-    TARGET = 500;
+    TARGET = 400;
     TITLE = 'Science Lab';
   } else if (team === 'appmaker') {
     TARGET = 500;
