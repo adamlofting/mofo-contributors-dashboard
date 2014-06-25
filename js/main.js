@@ -76,11 +76,13 @@ function draw(data) {
     .range([height + margin.top, margin.top])
     .domain([0,y_scale_max]);
 
+  var y2zoom = (y_scale_max/contributor_extent[1]);
+
   // secondary Y axis
   var contributor_new_extent = d3.extent(data, function (d) { return d.new; });
   var y_scale_2 = d3.scale.linear()
-    .range([height + margin.top, margin.top])
-    .domain([0,contributor_new_extent[1]*6]);
+    .range([height + margin.top, margin.top + (height/5*3)])
+    .domain([0,contributor_new_extent[1]*y2zoom]);
 
   var time_extent = d3.extent(data, function (d) { return new Date(d.wkcommencing); });
   var x_scale = d3.time.scale()
@@ -314,7 +316,7 @@ function display_latest (data) {
     });
 
   // Get the buckets
-  d3.select("#buckets").selectAll("h4")
+  d3.select("#buckets").selectAll("span")
     .each(function (d, i) {
       var bucket = d3.select(this);
       var id = bucket.attr("id");

@@ -15,8 +15,13 @@ body {
   color: #FFF;
 }
 
+.current-numbers a {
+  color: #FFF;
+  opacity: 0.6;
+}
+
 .definition {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .key-box p {
@@ -51,14 +56,23 @@ body {
     color: #FFF;
 }
 
+footer h4 span {
+  color: #26ABF3;
+}
 footer h4 {
   color: #028ED9;
   margin-bottom: 5px;
 }
 
-footer h5 {
+footer h5,
+footer p {
   color: #02669D;
   margin-top: 5px;
+}
+
+
+footer hr {
+  border-color: #02669D;
 }
 
 @media (min-width: 768px) {
