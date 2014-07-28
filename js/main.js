@@ -24,7 +24,7 @@ if (team && ($.inArray(team, validTeams) > -1)) {
     TARGET = 500;
     TITLE = 'OpenNews';
   } else if (team === 'hive') {
-    TARGET = 750;
+    TARGET = 1000;
     TITLE = 'Hive';
   }
 } else {
