@@ -65,6 +65,8 @@ d3.select("#chart")
 // Build the graph
 function draw(data) {
   var now = new Date();
+  var last30days = new Date();
+  last30days = last30days.setDate(now.getDate() - 30);
 
   // SCALE
   var y_scale_max = Y_SCALE_MAX_DEFAULT;
@@ -88,6 +90,8 @@ function draw(data) {
   var x_scale = d3.time.scale()
     .domain(time_extent)
     .range([margin.left, margin.left + width]);
+
+
 
   // TOOL TIP
   var tip = d3.tip()
@@ -130,7 +134,7 @@ function draw(data) {
     .attr("x2", margin.left + width - 20)
     .attr("y1", y_scale(TARGET))
     .attr("y2", y_scale(TARGET))
-    .style("stroke-dasharray", ("3, 3"))
+    .style("stroke-dasharray", ("5, 2"))
     .attr("class", "target goal");
 
   // Bars
@@ -201,6 +205,96 @@ function draw(data) {
     .x(function (d) { return x_scale(new Date(d.wkcommencing)) + halfBar; })
     .y(function (d) { return y_scale(d.totalactive); });
 
+  // Trend
+
+  // Derive a linear regression for the year to date
+  var activeData = data.filter(function (d) {
+                      return (d.totalactive > 0) && (new Date(d.wkcommencing) < now);
+                    });
+
+  var linYr = ss.linear_regression().data(activeData.map(function(d) {
+    return [+new Date(d.wkcommencing), d.totalactive];
+  })).line();
+
+  // Create a line based on the beginning and endpoints of the range
+  var lindataYr = x_scale.domain().map(function(x, idx) {
+    var date =  new Date(x);
+    if (idx === 1) {
+      // bring the end point in a week so it stops nicely on the graph
+      date = date.setDate(date.getDate() - 7);
+    }
+    return {
+      wkcommencing: date,
+      totalactive: linYr(+x)
+    };
+  });
+
+  // Derive a linear regression for recent weeks
+  var recentActiveData = data.filter(function (d) {
+                      var date = new Date(d.wkcommencing);
+                      return (d.totalactive > 0) && (date < now) && (date > last30days);
+                    });
+
+  var linRecent = ss.linear_regression().data(recentActiveData.map(function(d) {
+    return [+new Date(d.wkcommencing), d.totalactive];
+  }));
+  var linRecentLine = linRecent.line();
+  var linRecentSlope = linRecent.m();
+
+  // Create a line based on the beginning and endpoints of the range
+  var linDataRecent = [];
+  linDataRecent[0] = {
+      wkcommencing: new Date(last30days),
+      totalactive: linRecentLine(+last30days)
+  };
+  var dataEndDate = new Date(x_scale.domain()[1]);
+  dataEndDate = dataEndDate.setDate(dataEndDate.getDate() - 7);
+  linDataRecent[1] = {
+      wkcommencing: new Date(dataEndDate),
+      totalactive: linRecentLine(+dataEndDate)
+  };
+
+
+  d3.select("#chart")
+    .append("path")
+    .datum(lindataYr)
+    .attr("class", "line active-contributors trend year")
+    .style("stroke-dasharray", ("2, 3"))
+    .attr("d", line);
+
+  // + a label
+  d3.select("#chart")
+    .append("text")
+    .attr("x", x_scale(lindataYr[1].wkcommencing))
+    .attr("y", y_scale(lindataYr[1].totalactive) + 5)
+    .attr("text-anchor", "end")
+    .attr("class", "text trend year")
+    .text("2014");
+
+  d3.select("#chart")
+    .append("path")
+    .datum(linDataRecent)
+    .attr("class", "line active-contributors trend recent")
+    .style("stroke-dasharray", ("5, 3"))
+    .attr("d", line);
+
+  // + a label
+  d3.select("#chart")
+    .append("text")
+    .attr("transform", function(d) {
+        var transX = x_scale(linDataRecent[1].wkcommencing);
+        var transY = y_scale(linDataRecent[1].totalactive) + 8;
+        return "translate("+transX+","+transY+")";
+        // var rotate = linRecentSlope;
+        // return "translate("+transX+","+transY+") rotate("+rotate+")";
+     })
+    .attr("text-anchor", "end")
+    .attr("class", "text trend year")
+
+    .text("recent");
+
+
+  // Active Line
   d3.select("#chart")
     .append("path")
     .datum(data.filter(function (d) {

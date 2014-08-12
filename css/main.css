@@ -181,6 +181,23 @@ circle.future-date {
   stroke-width: 1.5px;
 }
 
+.line.active-contributors.trend {
+  stroke: #fff;
+  opacity: 0.3;
+}
+
+.line.active-contributors.trend.recent {
+  stroke: #fff;
+  opacity: 0.5;
+  stroke-width: 2px;
+}
+
+.text.trend {
+  fill: #FFF;
+  stroke: none;
+  font-size: 11px;
+}
+
 rect.new-contributors {
   fill: #ffcd36;
 }
@@ -192,12 +209,13 @@ rect.hide {
 line.target {
     fill: none;
     stroke: #68CAA9;
-    opacity: 0.4;
+    opacity: 0.8;
 }
 
 line.target.goal {
     fill: none;
-    stroke: #FFF;
+    stroke: #FFCD36;
+    stroke-width: 2px;
 }
 
 body rect {
