@@ -17,7 +17,11 @@ body {
 
 .current-numbers a {
   color: #FFF;
-  opacity: 0.6;
+  opacity: 1;
+}
+
+.current-numbers p a {
+  text-decoration: underline;
 }
 
 .definition {
@@ -171,8 +175,10 @@ circle {
   fill: #fff;
 }
 
-circle.future-date {
-  fill: #68CAA9;
+circle.projection {
+  fill: #FFCD36;
+  stroke: #3fb58e;
+  stroke-width: 2px;
 }
 
 .line.active-contributors {
@@ -181,15 +187,20 @@ circle.future-date {
   stroke-width: 1.5px;
 }
 
+.line.active-contributors.projection {
+  stroke: #FFCD36;
+  stroke-width: 1.8px;
+}
+
 .line.active-contributors.trend {
   stroke: #fff;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .line.active-contributors.trend.recent {
   stroke: #fff;
   opacity: 0.5;
-  stroke-width: 2px;
+  stroke-width: 1.5px;
 }
 
 .text.trend {

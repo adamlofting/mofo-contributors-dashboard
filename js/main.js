@@ -67,6 +67,8 @@ function draw(data) {
   var now = new Date();
   var last30days = new Date();
   last30days = last30days.setDate(now.getDate() - 30);
+  var last7days = new Date();
+  last7days = last7days.setDate(now.getDate() - 7);
 
   // SCALE
   var y_scale_max = Y_SCALE_MAX_DEFAULT;
@@ -202,8 +204,18 @@ function draw(data) {
   // ACTIVE CONTRIBUTORS
   // Line
   var line = d3.svg.line()
-    .x(function (d) { return x_scale(new Date(d.wkcommencing)) + halfBar; })
-    .y(function (d) { return y_scale(d.totalactive); });
+    .x(function (d) {
+      // use the wkcommencing, or month if it's a projection
+      var x = d.wkcommencing ? d.wkcommencing : d.month;
+      x = new Date(x);
+      console.log(x_scale(x));
+      return x_scale(x) + halfBar;
+    })
+    .y(function (d) {
+      // use the totalactive, or projection if it's a projection
+      var y = d.totalactive ? d.totalactive : d.projection;
+      return y_scale(y);
+    });
 
   // Trend
 
@@ -304,13 +316,36 @@ function draw(data) {
     .attr("class", "line active-contributors")
     .attr("d", line);
 
+  // Projection Line
+  d3.select("#chart")
+    .append("path")
+    .datum(data.filter(function (d) {
+        if (d.projection > 0) {
+          return true;
+        }
+        var week = new Date(d.wkcommencing);
+        if ((d.totalactive > 0) && (week < now) && (week >= last7days)) {
+          return true;
+        }
+        return false;
+      })
+    )
+    .attr("class", "line active-contributors projection")
+    .style("stroke-dasharray", ("5, 3"))
+    .attr("d", line);
+
   // Points
   d3.select("#chart")
     .selectAll("points")
-    .data(data.filter(function (d) { return (d.totalactive > 0); }))
+    .data(data.filter(function (d) {
+      return (d.totalactive > 0 || d.projection > 0);
+    }))
     .enter()
     .append("circle")
     .attr("class", function (d) {
+      if (d.projection) {
+        return "active-contributors projection";
+      }
       if (new Date(d.wkcommencing) > now) {
         if (SHOW_FUTURE_LAG) {
           return "active-contributors future-date";
@@ -320,10 +355,40 @@ function draw(data) {
       }
     });
 
+  // util function for below
+  function getRelevantDate (d) {
+    var date;
+    if (d.wkcommencing) {
+      date = d.wkcommencing;
+    } else {
+      date = d.month;
+    }
+    date = new Date(date);
+    return date;
+  }
+
+  // util function for below
+  function getRelevantValue (d) {
+    var value;
+    if (d.totalactive) {
+      value = d.totalactive;
+    } else {
+      value = d.projection;
+    }
+    return value;
+  }
+
   d3.select("#chart").selectAll(".active-contributors")
-    .attr("cx", function (d) { return x_scale(new Date(d.wkcommencing)) + halfBar; })
-    .attr("cy", function (d) { return y_scale(d.totalactive); })
+    .attr("cx", function (d) {
+      return x_scale(getRelevantDate(d)) + halfBar;
+    })
+    .attr("cy", function (d) {
+      return y_scale(getRelevantValue(d));
+    })
     .attr("r", function (d) {
+      if (d.projection) {
+        return 4.0;
+      }
       if (new Date(d.wkcommencing) > now) {
         return 1.0;
       } else {
