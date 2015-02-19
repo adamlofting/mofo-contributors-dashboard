@@ -4,8 +4,8 @@ var team = $.url().param("team");
 var validTeams = ['webmaker', 'openbadges', 'sciencelab', 'opennews', 'appmaker', 'hive'];
 
 if (team && ($.inArray(team, validTeams) > -1)) {
-  var GRAPH_DATA = "http://aggredash.herokuapp.com/api/" + team + "/2014";
-  var TOTALS_DATA = "http://aggredash.herokuapp.com/api/" + team + "/2014/latest";
+  var GRAPH_DATA = "https://aggredash.herokuapp.com/api/" + team + "/2014";
+  var TOTALS_DATA = "https://aggredash.herokuapp.com/api/" + team + "/2014/latest";
   var TARGET;
   var TITLE;
   if (team === 'webmaker') {
@@ -29,8 +29,8 @@ if (team && ($.inArray(team, validTeams) > -1)) {
   }
 } else {
   // default Mofo view
-  var GRAPH_DATA = "http://aggredash.herokuapp.com/api/mofo/2014";
-  var TOTALS_DATA = "http://aggredash.herokuapp.com/api/mofo/2014/latest";
+  var GRAPH_DATA = "https://aggredash.herokuapp.com/api/mofo/2014";
+  var TOTALS_DATA = "https://aggredash.herokuapp.com/api/mofo/2014/latest";
   var TARGET = 10000;
   var TITLE = 'All Mozilla Foundation';
 }
